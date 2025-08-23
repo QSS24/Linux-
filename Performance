@@ -1,0 +1,27 @@
+Performance.sh
+#! /bin/bash
+set -x
+## to ensure root user 
+if [! "$UID" -ne 0]; then
+echo " must be root to execute this cript" || exit (0)
+Else do: 
+# create function to check computer performance
+Function watch_ps {
+declare -a watch = (ps watch -ac --format pid && %cpu)
+for pid, %cpu in $watch enumerate($watch) 2> /dev/null > watch_ps.txt
+  
+set -0 errtrace
+Err declare: "there's an error from the previous excuted fg command" #?
+return $watch_ps
+}
+done 
+
+Function sys_log {
+Declare -a var = ./var/log/sys.log
+if [! -f "$var"] then;
+Echo "the log is empty"
+else do:
+for -f in $var
+fm type -f {ctime, atime, mtime} | less wc sys_log.txt
+done
+}

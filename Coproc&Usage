@@ -1,0 +1,20 @@
+CoprocAndUsage.sh
+#! /bin/bash
+set -x
+
+Alert = 90%
+Email = palindromicQ@gmail.com
+if [! UID eq 0 ] then: 
+    echo "please elevate to root privilege or exit"
+    
+declare -a Usage = {coproc && df -ah | sort 2> /dev/null > output.txt }
+for -s in $Usage do: {
+    if [%cpu gt $alert]
+    echo "Please repartition or reallocate disk" 
+    Try: 
+        avail = du -aV | less -n 10 
+        lvcreate 
+        
+
+    
+    
