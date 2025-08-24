@@ -4,7 +4,11 @@ InteractingWithInterfaces.sh
 set -x
 Declare Q = [punc]
 Logger = Datetime(time)
-Errtrace ${ Int_Brief }
+ErrTrace = { ' Errtrace ${ Int_Brief, Assign_Subnet } '
+    For each er in $ErrTrace == ' $ErrTrace[er] | Less > $Logger(ErrLog.txt) '
+    Throw Error as er:
+       Print('Please correct these erros:' Enumerate( ErrLog.txt ))  
+   }
 Global: 
    Declare -i host = { Echo ' host ip:' }
            -i user = { Echo ' user ip:' }
@@ -27,3 +31,14 @@ Scan_Router () {
    Try: 
    if $Domain[a::1] && sort -nr 10 > $Logger(
 
+Def Config_VLSM() {
+   Assign_Subnet = ' sh int brief details eth* (print '$1$Q $2$Q $3$Q').format(Eth*[1-9]) ' \n
+       exec assign $host $subnet " for Input(' ') "   \n
+       will complete it later
+       
+       
+       Try: 
+         For a, b, c in $Eth/[0-9] 
+            do Eth[a::1] > 
+              
+          
