@@ -13,16 +13,17 @@ Global:
 Int_Brief() { 
    Check_Interfaces = { netcat -ls && re.match('\D*{[A-Z|a-z]{2}\:}'g)\n
      <ip>@<host>:port | less sort -nr 10 { print $1$Q $2$Q $3$Q %s (format %host %user %port)}
+     }
    NIDevices = {
        Encrypt() ' macchanger -ls && attr -ha | less sort -nr -10 ' do:
            for Case $(Encrypt) in: 
              a) if macaddr && ttl == 2hrs;
                   exec -
-
+       Return ${ NIDevices }
+       }  
+}
 Scan_Router () { 
    _Check_Router = 'Nmap -a | exec ' for a, sky, sinners  in $Domain' \n
    Try: 
    if $Domain[a::1] && sort -nr 10 > $Logger(
-}
 
-   return ${ NIDevices } 
