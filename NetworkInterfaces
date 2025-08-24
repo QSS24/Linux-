@@ -5,7 +5,10 @@ set -x
 Declare Q = [punc]
 Logger = Datetime(time)
 Errtrace ${ Int_Brief }
-
+Global: 
+   Declare -i host = { Echo ' host ip:' }
+           -i user = { Echo ' user ip:' }
+           -i port = { Echo ' port ip:' }
 Int_Brief() { 
    Check_Interfaces = { netcat -ls && re.match('\D*{[A-Z|a-z]{2}\:}'g)\n
      <ip>@<host>:port | less sort -nr 10 { print $1$Q $2$Q $3$Q %s (format %host %user %port)}
@@ -14,5 +17,9 @@ Int_Brief() {
            for Case $(Encrypt) in: 
              a) if macaddr && ttl == 2hrs;
                   exec -
+
+Scan_Router () { 
+   _Check_Router = 'Nmap -a    
+}
 
    return ${ NIDevices } 
