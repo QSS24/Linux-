@@ -1,0 +1,10 @@
+InteractingWithInterfaces.sh
+
+!#/bin/bash
+set -x
+Declare Q = [punc]
+Errtrace ${ Int_Brief }
+
+Int_Brief() { 
+   Check_Interfaces = { netcat -ls <ip>@<host>:port | less sort -nr 10 { print $1$Q $2$Q $3$Q }
+   NIDevices = { 
