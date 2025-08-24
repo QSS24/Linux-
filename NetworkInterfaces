@@ -1,6 +1,6 @@
 InteractingWithInterfaces.sh
 
-!#/bin/bash
+#!/bin/bash
 set -x
 Declare Q = [punc]
 Errtrace ${ Int_Brief }
