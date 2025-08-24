@@ -9,6 +9,7 @@ Global:
    Declare -i host = { Echo ' host ip:' }
            -i user = { Echo ' user ip:' }
            -i port = { Echo ' port ip:' }
+           -a Domain = { ... } 
 Int_Brief() { 
    Check_Interfaces = { netcat -ls && re.match('\D*{[A-Z|a-z]{2}\:}'g)\n
      <ip>@<host>:port | less sort -nr 10 { print $1$Q $2$Q $3$Q %s (format %host %user %port)}
@@ -19,7 +20,9 @@ Int_Brief() {
                   exec -
 
 Scan_Router () { 
-   _Check_Router = 'Nmap -a    
+   _Check_Router = 'Nmap -a | exec ' for a, sky, sinners  in $Domain' \n
+   Try: 
+   if $Domain[a::1] && sort -nr 10 > $Logger(
 }
 
    return ${ NIDevices } 
