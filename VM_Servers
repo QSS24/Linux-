@@ -1,0 +1,17 @@
+copy (c)
+
+VMs.sh
+#! /bin/venv/bash 
+Set -x && Set ErrTrace
+
+Cpu, Space = '$@'
+BinLog = '/~/var/log/virtlib.log' 
+
+
+VM() {
+  Check_VM = " virsh -nodeinfo QSS24 | less && sort -nr 10 
+               grep "%cpu" > Logging(date(CurVM.txt))
+               while read -r cpu do: 
+     }          
+
+
