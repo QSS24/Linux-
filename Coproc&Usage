@@ -13,17 +13,21 @@ Declare global {
 
 Usage_Alert () {
   Declare -a Usage = " coproc && df -ah | sort -nr 10 | less >2 & $Daily(output.txt) "
+  Declare -a MemLeakage = " ps -aux | sort -nr && tail -n 5 | grep '[\%cpu ":" \%MEM ":" User]' 
   If [! UID eq 0 ] then: 
     Do echo "please elevate to root privilege or exit" 
-  For -s in $Usage do: {
-    if [%cpu gt $alert]
-    exec Sendmail -o $Email_to \n
-                  -t $Email_from \n
-     echo "Please repartition or reallocate disk" 
-    }
+  For -s in $Usage, $MemLeakage do: {
+    if [%cpu gt $Alert] > MemLeaks(date).txt | 
+    Sendmail -t $Email_to <<END_MESSAGE
+        from:     Q24ss@yahoo.com
+        subject:  " Memory Leaks "
+        body:     " Please repartition the %cpu usage \n
+                  and reallocate mem space" 
+    <<END_MESSAGE
+  }
 }
 
-Return $Usage_Alert 
+Return $Usage_Alert
         
 
     
