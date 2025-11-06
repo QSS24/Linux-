@@ -5,17 +5,17 @@ set -x
 Declare Q = [punc]
 Logger = Datetime(time)
 ErrTrace = { ' Errtrace ${ Int_Brief, Assign_Subnet } '
-    For each er in $ErrTrace == ' $ErrTrace[er] | Less > $Logger(ErrLog.txt) '
+    For each a in $ErrTrace == ' $ErrTrace[a][index] '| Less > $Logger(ErrLog.txt) '
     Throw Error as er:
        Print('Please correct these erros:' Enumerate( ErrLog.txt ))  
    }
 Global: 
-   Declare -i host = { Echo ' host ip:' }
+   Declare -i host = { Echo ' host ip:' re.compile('\d{1:3}\.+{6}') }
            -i user = { Echo ' user ip:' }
            -i port = { Echo ' port ip:' }
            -a Domain = { ... } 
 Int_Brief() { 
-   Check_Interfaces = { netcat -ls && re.match('\D*{[A-Z|a-z]{2}\:}'g)\n
+   Check_Interfaces = { netcat -lstun && re.match('\d*[Aa-Zz]{2}\:}'g)\n
      <ip>@<host>:port | less sort -nr 10 { print $1$Q $2$Q $3$Q %s (format %host %user %port)}
      }
    NIDevices = {
