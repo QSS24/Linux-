@@ -2,16 +2,33 @@ copy (c)
 
 VMs.sh
 #! /bin/venv/bash 
-Set -x && Set ErrTrace
+Flush all
 
-Cpu, Space = '$@'
-BinLog = '/~/var/log/virtlib.log' 
+Set -x && Set ErrTrace { $VM }
+Set { $Interfaces_ip }
+
+Cpu, ip  = '$@'
+BinLog = '/~/var/log/virtlibd.log/*QSS24/log" 
+
+Interfaces_ip() { 
+      int_ips = { '\d{1:3}
+}
+
 
 
 VM() {
   Check_VM = " virsh -nodeinfo QSS24 | less && sort -nr 10 
-               grep "%cpu" > Logging(date(CurVM.txt))
-               while read -r cpu do: 
+               awk "%cpu" #? { } > Logging(date(CurVM.txt)) "
+
+  VM_log   = " virsh domifaddr QSS24 | less -n 10 > 
+               while read -r ip[index], MAC[index] do:
+              set $[1:5] 
+              if ip[index] | MAC[index] == 0 exit(1) 
+              Case ip[index] | MAC[index][ do: 
+              *MAC[1::1]*)  New_mac = macchanger  
+              *enp[0::1]*)  New_ip  = 
+              echo 
+
      }          
 
 
