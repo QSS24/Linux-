@@ -1,0 +1,6 @@
+NextGenFireWall.sh
+#! /bin/venv/ bash
+Set -x && Set -E
+Set { $Interfaces_ip }
+
+Firewall_Router = { firewalld 
