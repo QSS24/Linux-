@@ -1,0 +1,19 @@
+QSS_VPNs.sh
+
+
+#! /bin/venv/bash
+Set -x && Set -E 
+Set { $Interfaces_ip } 
+
+
+Sudo apt-get -y devtunnel --update='latest'
+
+
+Router_ACLs() { 
+    Local_ACLs = ' Access-list Outside-in permit [TCP] any host <$ips/$cidr> \
+                        eq [SSH, DNS]
+                 ' 
+                 if $Local_ACLs == 0 exit (1) >2 & VPNs_AccessError.log
+                 else 
+                 fi 
+    
