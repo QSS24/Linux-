@@ -4,16 +4,31 @@ VMs.sh
 #! /bin/venv/bash 
 Flush all
 
-Set -x && Set ErrTrace { $VM }
+Set -xou && Set ErrTrace { $VM }
 Set { $Interfaces_ip }
 
 Cpu, ip  = '$@'
 BinLog = '/~/var/log/virtlibd.log/*QSS24/log" 
+Global = $Ips_addr
 
-Interfaces_ip() { 
-      int_ips = { '\d{1:3}
+Ips_Addr() { 
+      IFS := [:|.]
+      set $1
+      Int_ipv4s : int, str = 
+      {   
+          randint( { re '\d{1:3}
+          ' ${#1:-666} && lt 256 \
+          ${#2:-666} && lt 256 \ ${$3:-666] && lt 256
+          ${#4:-666} && lt 256 '
+          })
+      }
+      Int_ipV6  :=  
+      CIDR : int= randint(:24)
 }
 
+Host_ips() { 
+      randint({$int_ipv4s}).$CIDR
+}
 
 
 VM() {
