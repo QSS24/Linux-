@@ -15,12 +15,13 @@ Global:
    Declare -i host = { Echo ' host ip:'  re.compile('\d{1:3}\.+{6}') }
            -i user = { Echo ' user ip:'  re.compile('\d{1:3}\.+{6}') }
            -i port = { Echo ' port ip:'  re.compile('\d{3}') && lt 999
-           -a Domain = { Echo 'This is where you enter the DNS:'  re.compile('\D\@\D\.[com|net|org|gov]'g) } 
+           -a Domain = { Echo 'This is where you enter the DNS: [@.com, @.net, @.gov, @.org]:'  re.compile('\D\@\D\.[com|net|org|gov]'g) } 
 Int_Brief() { 
    While $Domains != none:
+      if $Domain == [@.com|@.net|@.gov|@.org]:
       Case $Domains in do:
         *@.com) -exec '  
-        *@.net) Dig ${user} 
+        *@.net) Dig ${user}  
         *@.org) ping [$host[index]] | %% 'find open | uniq && sort -nr 5 >$Logger(Domains.txt)' 
         *@.gov) Tshark -d | uniq | Tshark -i | -Xargs awk ${print $[1:8]} {}  
         esac; 
