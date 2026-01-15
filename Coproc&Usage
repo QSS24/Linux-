@@ -1,23 +1,23 @@
 CoprocAndUsage.sh
 
-
 #! /bin/bash
-set -x
+
+set -uox && set Errtrace
 Declare global {
   Alert = 90%
-  Email_To = ' Whomever@gmail.com && People@yahoo.com && NetworkEngineers@Engineers.org'
+  Email_To = { Qss24@yahoo.com,  PalindromicQ11@gmail.com, QlamAteam@gmail.com '
   Email_From = Q24ss@yahoo.com
-  Daily = ' Datetime(time) %...' 
+  Daily = ' Datetime(time) %d %s ' 
   Set errtrace $Usage_Alert 
 }
 
 Usage_Alert () {
-  Declare -a Usage = " coproc && df -ah | sort -nr 10 | less >2 & $Daily(output.txt) "
-  Declare -a MemLeakage = " ps -aux | sort -nr && tail -n 5 | grep '[\%cpu ":" \%MEM ":" User]' 
+  Declare -a Usage = " coproc && df -ah | sort -nr 10 |uniq| less >2 & $Daily(output.txt) "
+  Declare -a MemLeakage = " ps -aux | sort -nr && tail -n 5 | grep s'[\%cpu ":" \%MEM ":" User]' | awk {print $3 $4 {} {} "
   If [! UID eq 0 ] then: 
     Do echo "please elevate to root privilege or exit" 
-  For -s in $Usage, $MemLeakage do: {
-    if [%cpu gt $Alert] > MemLeaks(date).txt | 
+  For -s in $Usage, for users in $MemLeakage do: {
+    if [%cpu gt $Alert] > MemLeaks(Daily).txt | 
     Sendmail -t $Email_to <<END_MESSAGE
         from:     Q24ss@yahoo.com
         subject:  " Memory Leaks "
