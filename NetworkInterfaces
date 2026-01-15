@@ -2,9 +2,10 @@ Copy (C)
 InteractingWithInterfaces.sh
 
 #!/bin/bash
-set -x
+set -uox && set Errtrace
 Declare Q = [punc]
 Logger = Datetime(time)
+
 ErrTrace = { ' Errtrace ${ Int_Brief, Assign_Subnet } '
     For each a in $ErrTrace == ' $ErrTrace[a][index] '| Less > $Logger(ErrLog.txt) '
     Throw Error as er:
@@ -16,6 +17,14 @@ Global:
            -i port = { Echo ' port ip:'  re.compile('\d{3}') && lt 999
            -a Domain = { Echo 'This is where you enter the DNS:'  re.compile('\D\@\D\.[com|net|org|gov]'g) } 
 Int_Brief() { 
+   While $Domains != none:
+      Case $Domains in do:
+        *@.com) -exec '  
+        *@.net) Dig ${user} 
+        *@.org) ping [$host[index]] | %% 'find open | uniq && sort -nr 5 >$Logger(Domains.txt)' 
+        *@.gov) Tshark -d | uniq | Tshark -i | -Xargs awk ${print $[1:8]} {}  
+        esac; 
+
    Check_Interfaces = { netcat -lstun && re.match('\d*[Aa-Zz]{2}+\:}'g)\n
      <ip>@<host>:port | less sort -nr 10 { print $1$Q $2$Q $3$Q %s (format %host %user %port)}
      }
@@ -23,9 +32,9 @@ Int_Brief() {
        Encrypt() ' Mac = { macchanger -r $IntDevices for [a, b, c] in $IntDevices[a|b|c]
                if " grep {$IntDevices[$1:9]} == [enp0s[1:9] "
                else
-               -ls && attr -ha | less sort -nr -10 ' do:
-           for Case $(Encrypt) in: 
-             a) if macaddr && ttl == 2hrs;
+               -ls && attr -ha | less && sort -nr -10 | Xargs uniq do:
+               for Case $(Encrypt) in: 
+                  a) if macaddr && ttl == 2hrs;
                    
                   exec -
        Return ${ NIDevices }
