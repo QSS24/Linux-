@@ -1,15 +1,18 @@
 Performance.sh
 #! /bin/bash
 set -uox && set Errtrace
-Sched_Cron = { Crontab -e \n
-      * 9 * * 1
-      sudo {$Perform $Chronicles $Syslog} 
-     }
+
 Declare Global:
  Chronicles = 
  { Chronilize = ( ps && watch -ac | less -nr 10 --format pid && %cpu)
    Dailylog = 'Datime(time) %d ":" %d ":" %d ":" %d % (format %month %year %day %hours)'
  }
+
+Sched_Cron = { Crontab -e \n
+      * 9 * * 1
+      sudo {$Perform $Chronicles $Syslog} 
+     }
+
  
   If [ "$UID" -ne 0]: 
     Echo " must be root to execute this cript" || exit (0)
@@ -22,11 +25,12 @@ Declare Global:
     return $Perform.Dailylog()
     }
   Sys_log() {
-    Declare -a var = './var/log/sys.log'
+    vars = './var/log/sys.log'
     if [! -f "$var"] then;
     Echo "the log is empty"
     else do:
-    for -f in $var
-    fm type -f {ctime, atime, mtime} | less | Xargs grep s'/$var/' '*.log' ${print $[1:5] {} {} } > sys_log.txt
+    for -f in $vars
+    fm type -f {ctime, atime, mtime} | less | Xargs grep s'$vars' '*.log' ${print $[1:5] {} {} } > sys_log.txt
     done
 }
+
