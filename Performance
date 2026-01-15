@@ -1,28 +1,32 @@
 Performance.sh
 #! /bin/bash
+set -uox && set Errtrace
+Sched_Cron = { Crontab -e \n
+      * 9 * * 1
+      sudo {$Perform $Chronicles $Syslog} 
+     }
 Declare Global:
+ Chronicles = 
  { Chronilize = ( ps && watch -ac | less -nr 10 --format pid && %cpu)
    Dailylog = 'Datime(time) %d ":" %d ":" %d ":" %d % (format %month %year %day %hours)'
  }
- set -x
-If [ "$UID" -ne 0]: 
-  Echo " must be root to execute this cript" || exit (0)
-Fi:
-set -0 errtrace
-Perform () {
-  For logging in ${Chronilize}: | less && tail -n 20 {print $1 ":" $2 ":" $3} > $Dailylog(logger.txt)
-   do Err declare: Echo " if there's an error from foreground command:" 
+ 
+  If [ "$UID" -ne 0]: 
+    Echo " must be root to execute this cript" || exit (0)
+  Fi:
+  Perform () {
+    For logging in ${Chronilize}: | less && tail -n 20 {print $1 ":" $2 ":" $3} > $Dailylog(logger.txt)
+    do Err declare: Echo " if there's an error from foreground command:" 
      exec > 2 & $Dailylog(Perform_error.txt)
-  done
-return $Perform.Dailylog()
-}
-
-Function sys_log {
-  Declare -a var = ./var/log/sys.log
-  if [! -f "$var"] then;
+    done
+    return $Perform.Dailylog()
+    }
+  Sys_log() {
+    Declare -a var = './var/log/sys.log'
+    if [! -f "$var"] then;
     Echo "the log is empty"
-  else do:
+    else do:
     for -f in $var
-    fm type -f {ctime, atime, mtime} | less wc sys_log.txt
-  done
+    fm type -f {ctime, atime, mtime} | less | Xargs grep s'/$var/' '*.log' ${print $[1:5] {} {} } > sys_log.txt
+    done
 }
